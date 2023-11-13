@@ -7,6 +7,8 @@ import Header from '@/components/home/Header';
 import HeroSection from '@/components/home/sections/Hero';
 import LogoSection from '@/components/home/sections/Logo';
 import StatsSection from '@/components/home/sections/Stats';
+import Pricing from '@/components/home/sections/Pricing';
+import Testimonial from '@/components/home/sections/Testimonial';
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => ({
   props: {
@@ -16,17 +18,15 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => ({
 
 const Home: NextPage = () => (
   <div>
-    <Header />
-
-    <main className="relative isolate mb-[450px] overflow-hidden bg-zinc-50 dark:bg-zinc-950">
+    <main className="relative isolate mb-[450px] overflow-hidden bg-zinc-50">
+      <Header />
       {/* Hero */}
       <HeroSection />
 
-      {/* Logo Cloud */}
-      <LogoSection />
-
       {/* Statistics */}
       <StatsSection />
+      <Pricing />
+      <Testimonial />
     </main>
 
     <Footer />
