@@ -1,0 +1,19 @@
+.experienceContainer {
+  @apply grid grid-cols-1;
+  @apply text-center;
+  @apply pt-[10vh];
+
+  .title {
+    @apply pt-4;
+  }
+
+  .buttonGroup {
+    @apply m-auto mt-10;
+
+    .buttonWrapper {
+      @apply m-3;
+      min-width: 250px;
+      height: 50px;
+    }
+  }
+}

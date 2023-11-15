@@ -2,6 +2,7 @@
 
 import Preview from '../preview/Preview';
 import SectionEditor from '../sectionEditor/SectionEditor';
+import './SideBySideEditor.module.scss';
 
 type SideBySideEditorProps = {
   currentSection?: string;

@@ -15,6 +15,7 @@ import styles from '@/styles/pages/Stepper.module.scss';
 import BuilderContext from '@/wrappers/BuilderContext';
 import { left } from '@/config/sections';
 import SideBySideEditor from '@/components/resume/editor/sideBySideEditor';
+import ExperienceLevel from '@/components/resume/steps/ExperienceLevel';
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => ({
   props: {
@@ -55,7 +56,9 @@ const StepperBuilder = () => {
           </title>
         </Head>
 
-        <SideBySideEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
+        <ExperienceLevel />
+
+        {/* <SideBySideEditor currentSection={currentSection} setCurrentSection={setCurrentSection} /> */}
       </div>
     </BuilderContext>
   );
