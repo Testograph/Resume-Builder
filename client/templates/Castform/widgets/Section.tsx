@@ -16,7 +16,6 @@ import { addHttp, parseListItemPath } from '@/utils/template';
 import Heading from './Heading';
 import { TEMPLATES } from '@/templates/templateHelper';
 import ScrollSectionInView from '@/templates/shared/ScrollSectionInView';
-import { ResumeBuilderContext } from '@/wrappers/BuilderContext';
 
 const Section: React.FC<SectionProps> = ({
   path,

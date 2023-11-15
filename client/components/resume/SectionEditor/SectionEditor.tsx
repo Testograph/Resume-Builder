@@ -1,17 +1,14 @@
 'use client';
 import { Add, Star } from '@mui/icons-material';
-import { Button, Divider, IconButton, SwipeableDrawer, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Button, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import React, { ReactComponentElement, useMemo, useState } from 'react';
+import React, { ReactComponentElement, useMemo } from 'react';
 import { Section as SectionRecord } from 'schema';
 
 import Section from '@/components/build/LeftSidebar/sections/Section';
-import Icon from '@/components/shared/Icon';
 import { getCustomSections, getSectionsByType, left } from '@/config/sections';
-import { setSidebarState } from '@/store/build/buildSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { addSection } from '@/store/resume/resumeSlice';
 import { resumePreviewScrollIntoView, sectionScrollIntoView } from '@/utils/editor';
@@ -114,51 +111,49 @@ const SectionEditor: React.FC<SectionEditorProps> = ({ currentSection, setCurren
   };
 
   return (
-    <>
-      <div className={styles.container}>
-        <nav className="overflow-y-auto">
-          <div className={styles.sections}>
-            {left.map(({ id, icon }) => (
-              <Tooltip
-                arrow
-                key={id}
-                placement="right"
-                title={t(`builder.leftSidebar.sections.${id}.heading`, get(sections, `${id}.name`))}
-              >
-                <IconButton onClick={() => onMenuClick(id)} color={id === currentSection ? 'secondary' : 'primary'}>
-                  {icon}
-                </IconButton>
-              </Tooltip>
-            ))}
+    <div className={styles.container}>
+      <nav className="overflow-y-auto">
+        <div className={styles.sections}>
+          {left.map(({ id, icon }) => (
+            <Tooltip
+              arrow
+              key={id}
+              placement="right"
+              title={t(`builder.leftSidebar.sections.${id}.heading`, get(sections, `${id}.name`))}
+            >
+              <IconButton onClick={() => onMenuClick(id)} color={id === currentSection ? 'secondary' : 'primary'}>
+                {icon}
+              </IconButton>
+            </Tooltip>
+          ))}
 
-            {customSections.map(({ id }) => (
-              <Tooltip
-                key={id}
-                title={t(`builder.leftSidebar.sections.${id}.heading`, get(sections, `${id}.name`))}
-                placement="right"
-                arrow
-              >
-                <IconButton onClick={() => onMenuClick(id)} color={id === currentSection ? 'secondary' : 'primary'}>
-                  <Star />
-                </IconButton>
-              </Tooltip>
-            ))}
-          </div>
-        </nav>
+          {customSections.map(({ id }) => (
+            <Tooltip
+              key={id}
+              title={t(`builder.leftSidebar.sections.${id}.heading`, get(sections, `${id}.name`))}
+              placement="right"
+              arrow
+            >
+              <IconButton onClick={() => onMenuClick(id)} color={id === currentSection ? 'secondary' : 'primary'}>
+                <Star />
+              </IconButton>
+            </Tooltip>
+          ))}
+        </div>
+      </nav>
 
-        <main>
-          {getCurrentSection()}
+      <main>
+        {getCurrentSection()}
 
-          <div className="py-6 text-right">
-            <Button fullWidth variant="outlined" startIcon={<Add />} onClick={handleAddSection}>
-              {t('builder.common.actions.add', {
-                token: t('builder.leftSidebar.sections.section.heading'),
-              })}
-            </Button>
-          </div>
-        </main>
-      </div>
-    </>
+        <div className="py-6 text-right">
+          <Button fullWidth variant="outlined" startIcon={<Add />} onClick={handleAddSection}>
+            {t('builder.common.actions.add', {
+              token: t('builder.leftSidebar.sections.section.heading'),
+            })}
+          </Button>
+        </div>
+      </main>
+    </div>
   );
 };
 

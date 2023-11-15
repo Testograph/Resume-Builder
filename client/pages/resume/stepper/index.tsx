@@ -4,21 +4,17 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Resume } from 'schema';
 
-import RightSidebar from '@/components/build/RightSidebar/RightSidebar';
-import Center from '@/components/build/Center/Center';
-import SectionEditor from '@/components/resume/SectionEditor/SectionEditor';
 import { fetchResumeByIdentifier } from '@/services/resume';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setResume } from '@/store/resume/resumeSlice';
 import styles from '@/styles/pages/Stepper.module.scss';
 import BuilderContext from '@/wrappers/BuilderContext';
-import Section from '@/components/build/LeftSidebar/sections/Section';
-import Preview from '@/components/resume/preview/Preview';
 import { left } from '@/config/sections';
+import SideBySideEditor from '@/components/resume/editor/sideBySideEditor';
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => ({
   props: {
@@ -51,7 +47,7 @@ const StepperBuilder = () => {
   if (!resume || isEmpty(resume)) return null;
 
   return (
-    <BuilderContext highlight={{ enable: true, sectionId: currentSection }}>
+    <BuilderContext highlight={{ enable: true, currentSection: currentSection, setCurrentSection: setCurrentSection }}>
       <div className={styles.container}>
         <Head>
           <title>
@@ -59,14 +55,7 @@ const StepperBuilder = () => {
           </title>
         </Head>
 
-        <div className="grid grid-cols-12">
-          <div className="col-span-12 lg:col-span-4 xl:col-span-6">
-            <SectionEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
-          </div>
-          <div className="col-span-12 lg:col-span-8 xl:col-span-6">
-            <Preview />
-          </div>
-        </div>
+        <SideBySideEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
       </div>
     </BuilderContext>
   );

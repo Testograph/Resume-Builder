@@ -4,7 +4,8 @@ type RBContextProps = {
   enableSelectToScroll?: boolean;
   highlight?: {
     enable: boolean;
-    sectionId?: string;
+    currentSection?: string;
+    setCurrentSection?: Function;
   };
 };
 

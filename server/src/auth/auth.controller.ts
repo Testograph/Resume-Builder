@@ -33,6 +33,18 @@ export class AuthController {
     }
   }
 
+  @Post('linkedin')
+  async loginWithLinkedin(@Body('credential') credential: string) {
+    try {
+      const user = await this.authService.authenticateWithGoogle(credential);
+      const accessToken = this.authService.getAccessToken(user.id);
+
+      return { user, accessToken };
+    } catch (error) {
+      throw new BadRequestException('User with this email might already exist.');
+    }
+  }
+
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {
     const user = await this.authService.register(registerDto);

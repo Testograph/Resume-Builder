@@ -28,6 +28,7 @@ services:
       - PUBLIC_URL=http://localhost:3000
       - PUBLIC_SERVER_URL=http://localhost:3100
       - PUBLIC_GOOGLE_CLIENT_ID=
+      - PUBLIC_LINKEDIN_CLIENT_ID=
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -39,6 +40,8 @@ services:
       - JWT_EXPIRY_TIME=604800
       - GOOGLE_CLIENT_SECRET=
       - GOOGLE_API_KEY=
+      - LINKEDIN_CLIENT_SECRET=
+      - LINKEDIN_API_KEY=
       - MAIL_FROM_NAME=Reactive Resume
       - MAIL_FROM_EMAIL=noreply@rxresu.me
       - MAIL_HOST=
@@ -68,6 +71,7 @@ services:
       - PUBLIC_URL=http://localhost:3000
       - PUBLIC_SERVER_URL=http://localhost:3100
       - PUBLIC_GOOGLE_CLIENT_ID=
+      - PUBLIC_LINKEDIN_CLIENT_ID=
 
 volumes:
   pgdata:

@@ -141,4 +141,34 @@ export class AuthService {
       return this.usersService.create(createUserDto);
     }
   }
+
+  async authenticateWithLinkedin(credential: string) {
+    const clientID = this.configService.get('linkedin.clientID');
+    const clientSecret = this.configService.get('linkedin.clientSecret');
+
+    const OAuthClient = new OAuth2Client(clientID, clientSecret);
+    const client = await OAuthClient.verifyIdToken({ idToken: credential });
+    const userPayload = client.getPayload();
+
+    try {
+      const user = await this.usersService.findByEmail(userPayload.email);
+
+      return user;
+    } catch (error: any) {
+      if (error.status !== HttpStatus.NOT_FOUND) {
+        throw new HttpException(error, HttpStatus.BAD_GATEWAY);
+      }
+
+      const username = userPayload.email.split('@')[0];
+
+      const createUserDto: CreateGoogleUserDto = {
+        name: `${userPayload.given_name} ${userPayload.family_name}`,
+        username,
+        email: userPayload.email,
+        provider: 'google',
+      };
+
+      return this.usersService.create(createUserDto);
+    }
+  }
 }

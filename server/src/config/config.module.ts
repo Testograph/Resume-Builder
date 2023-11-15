@@ -36,7 +36,10 @@ const validationSchema = Joi.object({
   // Google
   GOOGLE_API_KEY: Joi.string().allow(''),
   GOOGLE_CLIENT_SECRET: Joi.string().allow(''),
+  LINKEDIN_API_KEY: Joi.string().allow(''),
+  LINKEDIN_CLIENT_SECRET: Joi.string().allow(''),
   PUBLIC_GOOGLE_CLIENT_ID: Joi.string().allow(''),
+  PUBLIC_LINKEDIN_CLIENT_ID: Joi.string().allow(''),
 
   // Mail
   MAIL_FROM_NAME: Joi.string().allow(''),

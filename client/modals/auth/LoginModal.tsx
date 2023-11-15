@@ -78,6 +78,7 @@ const LoginModal: React.FC = () => {
   };
 
   const handleLoginWithGoogle = async (response: CredentialResponse) => {
+    debugger;
     if (response.credential) {
       await loginWithGoogleMutation({ credential: response.credential }, { onError: handleGoogleLoginError });
 
