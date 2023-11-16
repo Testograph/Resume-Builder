@@ -4,9 +4,6 @@
 }
 
 .page {
-  width: 210mm;
-  min-height: 297mm;
-
   @apply relative z-50 grid shadow;
   @apply print:shadow-none;
 
@@ -16,7 +13,6 @@
 
   &.break::after {
     content: 'Page Break';
-    top: calc(297mm - 19px);
 
     @apply absolute w-full border-b border-dashed border-zinc-900/75;
     @apply flex items-end justify-end pr-2 pb-0.5 text-xs font-bold text-zinc-900/75;
@@ -34,6 +30,15 @@
 
     &.break::after {
       top: calc(279mm - 19px);
+    }
+  }
+
+  &.format-a4 {
+    width: 210mm;
+    min-height: 297mm;
+
+    &.break::after {
+      top: calc(297mm - 19px);
     }
   }
 }

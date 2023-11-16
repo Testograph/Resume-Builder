@@ -15,9 +15,13 @@ import styles from './Page.module.scss';
 
 type Props = PageProps & {
   showPageNumbers?: boolean;
+  /**
+   * Preview mode will disable the page margins and page formatting
+   */
+  previewMode?: boolean;
 };
 
-const Page: React.FC<Props> = ({ page, showPageNumbers = false }) => {
+const Page: React.FC<Props> = ({ page, showPageNumbers = false, previewMode = false }) => {
   const { t } = useTranslation();
 
   const resume = useAppSelector((state) => state.resume.present);
@@ -42,8 +46,9 @@ const Page: React.FC<Props> = ({ page, showPageNumbers = false }) => {
         className={clsx({
           reset: true,
           [styles.page]: true,
-          [styles.break]: breakLine,
-          [styles['format-letter']]: pageConfig?.format === 'Letter',
+          [styles.break]: breakLine && !previewMode,
+          [styles['format-letter']]: pageConfig?.format === 'Letter' && !previewMode,
+          [styles['format-a4']]: pageConfig?.format === 'A4' && !previewMode,
           [css(themeCSS)]: true,
           [css(typographyCSS)]: true,
           [css(customCSS.value)]: customCSS.visible,
@@ -52,7 +57,9 @@ const Page: React.FC<Props> = ({ page, showPageNumbers = false }) => {
         {TemplatePage && <TemplatePage page={page} />}
       </div>
 
-      {showPageNumbers && <h4 className={styles.pageNumber}>{`${t('builder.common.glossary.page')} ${page + 1}`}</h4>}
+      {showPageNumbers && !previewMode && (
+        <h4 className={styles.pageNumber}>{`${t('builder.common.glossary.page')} ${page + 1}`}</h4>
+      )}
     </div>
   );
 };

@@ -56,9 +56,9 @@ const StepperBuilder = () => {
           </title>
         </Head>
 
-        <ExperienceLevel />
+        {/* <ExperienceLevel /> */}
 
-        {/* <SideBySideEditor currentSection={currentSection} setCurrentSection={setCurrentSection} /> */}
+        <SideBySideEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
       </div>
     </BuilderContext>
   );

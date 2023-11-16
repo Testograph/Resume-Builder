@@ -17,7 +17,7 @@ const Preview = () => {
   return (
     <div className={styles.container}>
       {layout.map((_, pageIndex) => (
-        <Page key={pageIndex} page={pageIndex} />
+        <Page key={pageIndex} page={pageIndex} previewMode />
       ))}
     </div>
   );

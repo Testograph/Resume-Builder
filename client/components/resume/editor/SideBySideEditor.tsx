@@ -1,5 +1,4 @@
 'use client';
-
 import Preview from '../preview/Preview';
 import SectionEditor from '../sectionEditor/SectionEditor';
 import './SideBySideEditor.module.scss';
@@ -15,8 +14,10 @@ const SideBySideEditor: React.FC<SideBySideEditorProps> = ({ currentSection, set
       <div className="col-span-12 lg:col-span-4 xl:col-span-6">
         <SectionEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
       </div>
-      <div className="col-span-12 lg:col-span-8 xl:col-span-6">
-        <Preview />
+      <div className="col-span-12 lg:col-span-8 xl:col-span-6 ">
+        <div className="m-5">
+          <Preview />
+        </div>
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ export const ScrollSectionInView: React.FC<React.PropsWithChildren<ScrollSection
         }),
         // Enable Highlighting current section
         ...(highlight?.enable &&
-          highlight.sectionId === sectionId && {
+          highlight.currentSection === sectionId && {
             boxShadow: 2,
             scale: '1.1',
             padding: '10px',
