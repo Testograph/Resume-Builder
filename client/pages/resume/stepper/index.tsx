@@ -14,8 +14,9 @@ import { setResume } from '@/store/resume/resumeSlice';
 import styles from '@/styles/pages/Stepper.module.scss';
 import BuilderContext from '@/wrappers/BuilderContext';
 import { left } from '@/config/sections';
-import SideBySideEditor from '@/components/resume/editor/sideBySideEditor';
-import ExperienceLevel from '@/components/resume/steps/ExperienceLevel';
+import SideBySideEditor from '@/components/resume/editor/SideBySideEditor';
+import { Container } from '@mui/material';
+// import ExperienceLevel from '@/components/resume/steps/ExperienceLevel';
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => ({
   props: {
@@ -57,8 +58,9 @@ const StepperBuilder = () => {
         </Head>
 
         {/* <ExperienceLevel /> */}
-
-        <SideBySideEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
+        <Container maxWidth={false}>
+          <SideBySideEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
+        </Container>
       </div>
     </BuilderContext>
   );
