@@ -25,6 +25,7 @@ import WorkModal from './builder/sections/WorkModal';
 import CreateResumeModal from './dashboard/CreateResumeModal';
 import ImportExternalModal from './dashboard/ImportExternalModal';
 import RenameResumeModal from './dashboard/RenameResumeModal';
+import ResumePreviewModal from './resume/ResumePreviewModal';
 
 type QueryParams = {
   modal?: ModalName;
@@ -72,6 +73,9 @@ const ModalWrapper: React.FC = () => {
       <VolunteerModal />
       <ProjectModal />
       <ReferenceModal />
+
+      {/* Resume */}
+      <ResumePreviewModal />
 
       {/* Custom Sections */}
       <CustomModal />

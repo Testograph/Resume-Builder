@@ -7,6 +7,7 @@ import {
   Home as HomeIcon,
   KeyboardArrowDown as KeyboardArrowDownIcon,
   Link as LinkIcon,
+  Preview,
 } from '@mui/icons-material';
 import {
   AppBar,
@@ -71,10 +72,6 @@ const Header = () => {
     }
   }, [isDesktop, dispatch]);
 
-  const toggleLeftSidebar = () => dispatch(toggleSidebar({ sidebar: 'left' }));
-
-  const toggleRightSidebar = () => dispatch(toggleSidebar({ sidebar: 'right' }));
-
   const goBack = () => router.push('/dashboard');
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -133,6 +130,10 @@ const Header = () => {
     await navigator.clipboard.writeText(url);
 
     toast.success(t('common.toast.success.resume-link-copied'));
+  };
+
+  const handlePreview = () => {
+    dispatch(setModalState({ modal: 'resume.preview', state: { open: true } }));
   };
 
   const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
@@ -200,7 +201,11 @@ const Header = () => {
               </Tooltip>
             </Menu>
           </div>
-          <div></div>
+          <div>
+            <IconButton className="opacity-50 hover:opacity-100" onClick={handlePreview}>
+              <Preview />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
       <Offset />
