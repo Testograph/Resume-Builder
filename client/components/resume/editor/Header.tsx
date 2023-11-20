@@ -12,6 +12,7 @@ import RenameResumeButton from '../common/RenameResumeButton';
 import DeleteResumeButton from '../common/DeleteResumeButton';
 import ShareResumeButton from '../common/ShareResumeButton';
 import DuplicateResumeButton from '../common/DuplicateResumeButton';
+import { RedoResumeButton, UndoResumeButton } from '../common/UndoRedoResumeButton';
 
 const Header = () => {
   const theme = useTheme();
@@ -48,7 +49,10 @@ const Header = () => {
     <>
       <AppBar elevation={0} position="fixed">
         <Toolbar variant="regular" className={styles.header}>
-          <div></div>
+          <div>
+            <UndoResumeButton hideTooltip />
+            <RedoResumeButton hideTooltip />
+          </div>
           <div className={styles.title}>
             <IconButton className="opacity-50 hover:opacity-100" onClick={goBack}>
               <HomeIcon />

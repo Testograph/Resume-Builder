@@ -28,7 +28,9 @@ const ExportResumeButton: React.FC<EditorButtonProps> = ({ hideTitle = false, hi
     <Tooltip arrow placement="top" title={hideTooltip ? '' : t('builder.controller.tooltip.export-pdf')}>
       <ButtonBase onClick={handleExportPDF} disabled={isLoading}>
         <Download fontSize="medium" />
-        {!hideTitle && <Typography sx={{ marginLeft: '10px' }}>{t('builder.controller.tooltip.copy-link')}</Typography>}
+        {!hideTitle && (
+          <Typography sx={{ marginLeft: '10px' }}>{t('builder.controller.tooltip.export-pdf')}</Typography>
+        )}
       </ButtonBase>
     </Tooltip>
   );
