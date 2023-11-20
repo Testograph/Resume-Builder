@@ -49,7 +49,7 @@ const StepperBuilder = () => {
   if (!resume || isEmpty(resume)) return null;
 
   return (
-    <BuilderContext highlight={{ enable: true, currentSection: currentSection, setCurrentSection: setCurrentSection }}>
+    <BuilderContext highlight={{ enable: false, currentSection: currentSection, setCurrentSection: setCurrentSection }}>
       <div className={styles.container}>
         <Head>
           <title>
@@ -58,9 +58,9 @@ const StepperBuilder = () => {
         </Head>
 
         {/* <ExperienceLevel /> */}
-        <Container maxWidth={false}>
-          <SideBySideEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
-        </Container>
+        {/* <Container maxWidth={false}> */}
+        <SideBySideEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
+        {/* </Container> */}
       </div>
     </BuilderContext>
   );

@@ -1,12 +1,12 @@
 'use client';
-import { Add, Star } from '@mui/icons-material';
+import { Add, ArrowBack, ArrowForward, Star } from '@mui/icons-material';
 import { Button, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import cloneDeep from 'lodash/cloneDeep';
 import get from 'lodash/get';
 import { useTranslation } from 'next-i18next';
-import React, { ReactComponentElement, useMemo } from 'react';
+import React, { ReactComponentElement, useEffect, useMemo, useState } from 'react';
 import { Section as SectionRecord } from 'schema';
-
+import { SidebarSection } from '@/types/app';
 import Section from '@/components/build/LeftSidebar/sections/Section';
 import { getCustomSections, getSectionsByType, left } from '@/config/sections';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -15,12 +15,15 @@ import { resumePreviewScrollIntoView, sectionScrollIntoView } from '@/utils/edit
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './SectionEditor.module.scss';
+import { concat } from 'lodash';
 type SectionEditorProps = {
   currentSection?: string;
   setCurrentSection: Function;
 };
 const SectionEditor: React.FC<SectionEditorProps> = ({ currentSection, setCurrentSection }) => {
   const theme = useTheme();
+
+  const [sideMenu, setSideMenu] = useState<SidebarSection[]>([]);
 
   const { t } = useTranslation();
 
@@ -29,9 +32,19 @@ const SectionEditor: React.FC<SectionEditorProps> = ({ currentSection, setCurren
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
 
   const sections = useAppSelector((state) => state.resume.present.sections);
+
   const metadata = useAppSelector((state) => state.resume.present.metadata);
 
   const customSections = useMemo(() => getCustomSections(sections), [sections]);
+
+  const nextSection = useMemo(
+    () => sideMenu?.[sideMenu?.findIndex(({ id }) => id === currentSection) + 1]?.id,
+    [sideMenu, currentSection],
+  );
+  const previousSection = useMemo(
+    () => sideMenu?.[sideMenu?.findIndex(({ id }) => id === currentSection) - 1]?.id,
+    [sideMenu, currentSection],
+  );
 
   const handleAddSection = () => {
     const id = uuidv4();
@@ -110,11 +123,21 @@ const SectionEditor: React.FC<SectionEditorProps> = ({ currentSection, setCurren
     }
   };
 
+  useEffect(() => {
+    const sidebarSection = left.map(({ id, icon }) => ({ id, icon }) as SidebarSection);
+    setSideMenu(
+      concat(
+        sidebarSection,
+        customSections.map(({ id }) => ({ id, icon: <Star /> }) as SidebarSection),
+      ),
+    );
+  }, [left, customSections]);
+
   return (
     <div className={styles.container}>
       <nav className="overflow-y-auto">
         <div className={styles.sections}>
-          {left.map(({ id, icon }) => (
+          {sideMenu.map(({ id, icon }) => (
             <Tooltip
               arrow
               key={id}
@@ -123,19 +146,6 @@ const SectionEditor: React.FC<SectionEditorProps> = ({ currentSection, setCurren
             >
               <IconButton onClick={() => onMenuClick(id)} color={id === currentSection ? 'secondary' : 'primary'}>
                 {icon}
-              </IconButton>
-            </Tooltip>
-          ))}
-
-          {customSections.map(({ id }) => (
-            <Tooltip
-              key={id}
-              title={t(`builder.leftSidebar.sections.${id}.heading`, get(sections, `${id}.name`))}
-              placement="right"
-              arrow
-            >
-              <IconButton onClick={() => onMenuClick(id)} color={id === currentSection ? 'secondary' : 'primary'}>
-                <Star />
               </IconButton>
             </Tooltip>
           ))}
@@ -151,6 +161,28 @@ const SectionEditor: React.FC<SectionEditorProps> = ({ currentSection, setCurren
               token: t('builder.leftSidebar.sections.section.heading'),
             })}
           </Button>
+        </div>
+
+        <div className="">
+          <div className="float-left">
+            {previousSection && (
+              <Button
+                fullWidth
+                variant="outlined"
+                startIcon={<ArrowBack />}
+                onClick={() => onMenuClick(previousSection)}
+              >
+                {t(`builder.leftSidebar.sections.${previousSection}.heading`, get(sections, `${previousSection}.name`))}
+              </Button>
+            )}
+          </div>
+          <div className="float-right">
+            {nextSection && (
+              <Button fullWidth variant="outlined" endIcon={<ArrowForward />} onClick={() => onMenuClick(nextSection)}>
+                {t(`builder.leftSidebar.sections.${nextSection}.heading`, get(sections, `${nextSection}.name`))}
+              </Button>
+            )}
+          </div>
         </div>
       </main>
     </div>

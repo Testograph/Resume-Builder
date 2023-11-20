@@ -55,7 +55,6 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const resume = useAppSelector((state) => state.resume.present);
-  const { left, right } = useAppSelector((state) => state.build.sidebar);
 
   const { mutateAsync: deleteMutation } = useMutation<void, ServerError, DeleteResumeParams>(deleteResume);
   const { mutateAsync: duplicateMutation } = useMutation<Resume, ServerError, DuplicateResumeParams>(duplicateResume);
@@ -141,16 +140,8 @@ const Header = () => {
   return (
     <>
       <AppBar elevation={0} position="fixed">
-        <Toolbar
-          variant="regular"
-          className={cn({
-            [styles.header]: true,
-            [styles.pushLeft]: left.open,
-            [styles.pushRight]: right.open,
-          })}
-        >
-          <IconButton onClick={toggleLeftSidebar}>{left.open ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
-
+        <Toolbar variant="regular" className={styles.header}>
+          <div></div>
           <div className={styles.title}>
             <IconButton className="opacity-50 hover:opacity-100" onClick={goBack}>
               <HomeIcon />
@@ -209,10 +200,7 @@ const Header = () => {
               </Tooltip>
             </Menu>
           </div>
-
-          <IconButton onClick={toggleRightSidebar}>
-            {right.open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
+          <div></div>
         </Toolbar>
       </AppBar>
       <Offset />
