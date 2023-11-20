@@ -1,5 +1,5 @@
 import { Download } from '@mui/icons-material';
-import { ButtonBase, Tooltip } from '@mui/material';
+import { ButtonBase, Tooltip, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import get from 'lodash/get';
 import { useMutation } from 'react-query';
@@ -8,8 +8,9 @@ import { ServerError } from '@/services/axios';
 import { printResumeAsPdf, PrintResumeAsPdfParams } from '@/services/printer';
 import { useAppSelector } from '@/store/hooks';
 import { useTranslation } from 'next-i18next';
+import { EditorButtonProps } from '@/types/editor';
 
-const ExportResumeButton = () => {
+const ExportResumeButton: React.FC<EditorButtonProps> = ({ hideTitle = false, hideTooltip = false }) => {
   const { t } = useTranslation();
   const { mutateAsync, isLoading } = useMutation<string, ServerError, PrintResumeAsPdfParams>(printResumeAsPdf);
   const resume = useAppSelector((state) => state.resume.present);
@@ -24,9 +25,10 @@ const ExportResumeButton = () => {
   };
 
   return (
-    <Tooltip arrow placement="top" title={t('builder.controller.tooltip.export-pdf')}>
+    <Tooltip arrow placement="top" title={hideTooltip ? '' : t('builder.controller.tooltip.export-pdf')}>
       <ButtonBase onClick={handleExportPDF} disabled={isLoading}>
         <Download fontSize="medium" />
+        {!hideTitle && <Typography sx={{ marginLeft: '10px' }}>{t('builder.controller.tooltip.copy-link')}</Typography>}
       </ButtonBase>
     </Tooltip>
   );
