@@ -12,17 +12,17 @@ type SideBySideEditorProps = {
 
 const SideBySideEditor: React.FC<SideBySideEditorProps> = ({ currentSection, setCurrentSection }) => {
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const isDesktop = useMediaQuery(theme.breakpoints.up('laptop'));
   return (
     <>
       <Header />
-      <div className="grid grid-cols-12 ">
+      <div className="grid grid-cols-12">
         <div className="col-span-12 lg:col-span-6">
           <SectionEditor currentSection={currentSection} setCurrentSection={setCurrentSection} />
         </div>
         {isDesktop && (
-          <div className="lg:col-span-6">
-            <div className="h-0 lg:h-full">
+          <div className="col-span-0 lg:col-span-6">
+            <div className="">
               <div className="flex h-[70vh] overflow-scroll p-2">
                 <Preview />
               </div>

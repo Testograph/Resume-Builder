@@ -1,4 +1,18 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    mobile: true; // adds the `mobile` breakpoint
+    tablet: true;
+    laptop: true;
+    desktop: true;
+    'tl-sm': true;
+    'tl-md': true;
+    'tl-lg': true;
+    'tl-xl': true;
+    'tl-2xl': true;
+  }
+}
+const defaultTheme = createTheme();
 
 const theme: ThemeOptions = {
   typography: {
@@ -63,6 +77,20 @@ const theme: ThemeOptions = {
           },
         },
       },
+    },
+  },
+  breakpoints: {
+    values: {
+      ...defaultTheme.breakpoints.values,
+      mobile: 0,
+      tablet: 768, //mui - sm || tailwind - md
+      laptop: 1024, //mui - md || tailwind - lg
+      desktop: 1200, // mui - lg || tailwind - xl
+      'tl-sm': 640, // tailwind - sm
+      'tl-md': 768, // tailwind - md
+      'tl-lg': 1024, // tailwind - lg
+      'tl-xl': 768, // tailwind - xl
+      'tl-2xl': 1280, // tailwind - 2xl
     },
   },
 };
